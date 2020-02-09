@@ -6,8 +6,9 @@
 
 // const app = require('../app')
 import app from '../app'
-const debug = require('debug')('demo:server')
-const http = require('http')
+import * as http from 'http'
+import * as NodeDebug from 'debug'
+const debug = NodeDebug('demo:server')
 
 /**
  * Get port from environment and store in Express.

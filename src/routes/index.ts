@@ -1,16 +1,9 @@
 import * as KoaRouter from 'koa-router'
-import { BaseContext } from 'koa'
 const router = new KoaRouter()
 
-declare module 'koa' {
-  interface BaseContext {
-    render(str: string, config: object): any
-  }
-}
-
-router.get('/', async (ctx, next: () => Promise<any>) => {
+router.get('/', async (ctx, next) => {
   await ctx.render('index', {
-    title: 'Hello Koa 2!'
+    title: 'Hello Koa 2哈哈哈哈哈!'
   })
 })
 
