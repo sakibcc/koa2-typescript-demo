@@ -6,6 +6,10 @@ import * as logger from 'koa-logger'
 import * as koaStatic from 'koa-static'
 import index from './routes/index'
 import users from './routes/users'
+import { REDIS_CONF } from './conf/db'
+
+import * as session from 'koa-session'
+import * as redisStore from 'koa-redis'
 
 const app = new Koa()
 const onerror = require('koa-onerror')
@@ -39,6 +43,27 @@ app.use(async (ctx: any, next: any) => {
   const ms = +new Date() - +start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+
+// session
+app.keys = ['test-key']
+
+app.use(
+  session(
+    {
+      key: 'demo.sid', // cookie name
+      prefix: 'demo:sess:', // redis key 的前缀
+      store: redisStore({
+        host: REDIS_CONF.host,
+        port: REDIS_CONF.port
+      }),
+      signed: true,
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      path: '/'
+    },
+    app
+  )
+)
 
 // routes
 app.use(index.routes())
