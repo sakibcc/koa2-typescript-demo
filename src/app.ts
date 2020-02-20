@@ -54,7 +54,8 @@ app.use(
       prefix: 'demo:sess:', // redis key 的前缀
       store: redisStore({
         host: REDIS_CONF.host,
-        port: REDIS_CONF.port
+        port: REDIS_CONF.port,
+        db: 1
       }),
       signed: true,
       httpOnly: true,
@@ -66,10 +67,8 @@ app.use(
 )
 
 // routes
-app.use(index.routes())
-app.use(index.allowedMethods())
-app.use(users.routes())
-app.use(users.allowedMethods())
+app.use(index.routes()).use(index.allowedMethods())
+app.use(users.routes()).use(users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
