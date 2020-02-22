@@ -9,4 +9,12 @@ const REDIS_CONF: DatabaseConfig = {
   host: '127.0.0.1'
 }
 
-export { REDIS_CONF }
+const MYSQL_CONF = {
+  host: 'localhost',
+  user: 'root',
+  password: 'fD852456',
+  port: 3306,
+  database: 'weibo_demo'
+}
+
+export { REDIS_CONF, MYSQL_CONF }
