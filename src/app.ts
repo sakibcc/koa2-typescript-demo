@@ -13,7 +13,8 @@ const app = new Koa()
 const onerror = require('koa-onerror')
 // router
 import index from './routes/index'
-import user from './routes/views/user'
+import userViewRouter from './routes/views/user'
+import userApiRouter from './routes/api/user'
 
 // error handler
 onerror(app)
@@ -66,7 +67,8 @@ app.use(
 
 // routes
 app.use(index.routes()).use(index.allowedMethods())
-app.use(user.routes()).use(user.allowedMethods())
+app.use(userViewRouter.routes()).use(userViewRouter.allowedMethods())
+app.use(userApiRouter.routes()).use(userApiRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

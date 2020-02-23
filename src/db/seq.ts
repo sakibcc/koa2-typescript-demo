@@ -18,7 +18,8 @@ if (isTest) {
 
 const seq = new Sequelize(database, user, password, conf)
 
-seq.addModels([__dirname + '/model'])
+// seq.addModels([__dirname + '/model'])
+seq.addModels([User])
 
 // 测试拦截
 seq
