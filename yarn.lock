@@ -391,7 +391,7 @@
   dependencies:
     "@types/babel-types" "*"
 
-"@types/bluebird@*":
+"@types/bluebird@*", "@types/bluebird@^3.5.29":
   version "3.5.29"
   resolved "https://registry.npm.taobao.org/@types/bluebird/download/@types/bluebird-3.5.29.tgz#7cd933c902c4fc83046517a1bef973886d00bdb6"
   integrity sha1-fNkzyQLE/IMEZRehvvlziG0AvbY=
@@ -598,6 +598,11 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.7.0.tgz?cache=0&sync_timestamp=1580842849735&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.7.0.tgz#b417deda18cf8400f278733499ad5547ed1abec4"
   integrity sha1-tBfe2hjPhADyeHM0ma1VR+0avsQ=
 
+"@types/node@^13.7.4":
+  version "13.7.4"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.7.4.tgz?cache=0&sync_timestamp=1582167921883&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.7.4.tgz#76c3cb3a12909510f52e5dc04a6298cdf9504ffd"
+  integrity sha1-dsPLOhKQlRD1Ll3ASmKYzflQT/0=
+
 "@types/range-parser@*":
   version "1.2.3"
   resolved "https://registry.npm.taobao.org/@types/range-parser/download/@types/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
@@ -648,7 +653,7 @@
   dependencies:
     "@types/superagent" "*"
 
-"@types/validator@*":
+"@types/validator@*", "@types/validator@^12.0.1":
   version "12.0.1"
   resolved "https://registry.npm.taobao.org/@types/validator/download/@types/validator-12.0.1.tgz#73dbc7f5f730ff7131754bca682824eb3c260b79"
   integrity sha1-c9vH9fcw/3ExdUvKaCgk6zwmC3k=
@@ -1740,6 +1745,11 @@ ee-first@1.1.1:
   resolved "https://registry.npm.taobao.org/ee-first/download/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
+ejs@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/ejs/download/ejs-3.0.1.tgz#30c8f6ee9948502cc32e85c37a3f8b39b5a614a5"
+  integrity sha1-MMj27plIUCzDLoXDej+LObWmFKU=
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.npm.taobao.org/emoji-regex/download/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -2146,6 +2156,18 @@ glob-parent@^3.1.0:
   dependencies:
     is-glob "^3.1.0"
     path-dirname "^1.0.0"
+
+glob@7.1.2:
+  version "7.1.2"
+  resolved "https://registry.npm.taobao.org/glob/download/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
+  integrity sha1-wZyd+aAocC1nhhI4SmVSQExjbRU=
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
 
 glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4:
   version "7.1.6"
@@ -4382,6 +4404,11 @@ redis@^3.0.2:
     redis-errors "^1.2.0"
     redis-parser "^3.0.0"
 
+reflect-metadata@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.npm.taobao.org/reflect-metadata/download/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
+  integrity sha1-Z648pXyXKiqhZCsQ/jY/4y1J3Ag=
+
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.npm.taobao.org/regenerator-runtime/download/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
@@ -4625,6 +4652,13 @@ sequelize-pool@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npm.taobao.org/sequelize-pool/download/sequelize-pool-2.3.0.tgz#64f1fe8744228172c474f530604b6133be64993d"
   integrity sha1-ZPH+h0QigXLEdPUwYEthM75kmT0=
+
+sequelize-typescript@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/sequelize-typescript/download/sequelize-typescript-1.1.0.tgz#d5c2945e7fbfe55a934917b27d84589858d79123"
+  integrity sha1-1cKUXn+/5VqTSReyfYRYmFjXkSM=
+  dependencies:
+    glob "7.1.2"
 
 sequelize@^5.21.5:
   version "5.21.5"
@@ -5299,9 +5333,9 @@ typedarray-to-buffer@^3.1.5:
     is-typedarray "^1.0.0"
 
 typescript@^3.7.5:
-  version "3.7.5"
-  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.7.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
-  integrity sha1-BpLiH2X9QQi5MwI4qsEd0uF3oa4=
+  version "3.8.2"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
+  integrity sha1-kdaGiq6tfadPSTxVOu/3bAwLHVo=
 
 uglify-js@^2.6.1:
   version "2.8.29"

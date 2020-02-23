@@ -4,8 +4,6 @@ import * as json from 'koa-json'
 import * as bodyparser from 'koa-bodyparser'
 import * as logger from 'koa-logger'
 import * as koaStatic from 'koa-static'
-import index from './routes/index'
-import users from './routes/users'
 import { REDIS_CONF } from './conf/db'
 
 import * as session from 'koa-session'
@@ -13,9 +11,9 @@ import * as redisStore from 'koa-redis'
 
 const app = new Koa()
 const onerror = require('koa-onerror')
-
-// const index = require('./routes/index')
-// const users = require('./routes/users')
+// router
+import index from './routes/index'
+import user from './routes/views/user'
 
 // error handler
 onerror(app)
@@ -32,7 +30,7 @@ app.use(koaStatic(__dirname + '/public'))
 
 app.use(
   views(__dirname + '/views', {
-    extension: 'pug'
+    extension: 'ejs'
   })
 )
 
@@ -68,7 +66,7 @@ app.use(
 
 // routes
 app.use(index.routes()).use(index.allowedMethods())
-app.use(users.routes()).use(users.allowedMethods())
+app.use(user.routes()).use(user.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

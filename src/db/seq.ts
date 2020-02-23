@@ -1,6 +1,9 @@
-import { Sequelize, Options } from 'sequelize'
+import { Sequelize } from 'sequelize-typescript'
+import { Options } from 'sequelize'
 import { MYSQL_CONF } from '../conf/db'
 import { isTest } from '../utils/env'
+// models
+import User from './model/user.model'
 
 const { host, user, password, database } = MYSQL_CONF
 const conf: Options = {
@@ -15,4 +18,16 @@ if (isTest) {
 
 const seq = new Sequelize(database, user, password, conf)
 
-export default seq
+seq.addModels([__dirname + '/model'])
+
+// 测试拦截
+seq
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.')
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err)
+  })
+
+export { seq, User }
