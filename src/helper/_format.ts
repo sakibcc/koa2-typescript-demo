@@ -12,7 +12,13 @@ function _formatUserPicture(obj: UserInfo): UserInfo {
   return obj
 }
 
-export function formatUser(obj: UserInfo): UserInfo {
-  let data = _formatUserPicture(obj)
+export function formatUser(val: UserInfo): UserInfo
+export function formatUser(val: UserInfo[]): UserInfo[]
+export function formatUser(val: UserInfo | UserInfo[]): UserInfo | UserInfo[] {
+  if (Array.isArray(val)) {
+    const data = val.map(_formatUserPicture)
+    return data
+  }
+  const data = _formatUserPicture(val)
   return data
 }

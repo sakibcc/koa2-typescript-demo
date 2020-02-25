@@ -1,7 +1,7 @@
 /**
  * @description 统一返回结构模式
  */
-import { ErrorMessage } from '../types'
+import { getResCodeAndMessage } from '../conf/resCode'
 export class BaseModel {
   status: boolean
   code: string
@@ -21,8 +21,8 @@ export class SuccessModel<T> extends BaseModel {
 
 export class ErrorModel extends BaseModel {
   message: string
-  constructor(data: ErrorMessage) {
-    super(false, data.code)
-    this.message = data.message
+  constructor(code: string) {
+    super(false, code)
+    this.message = getResCodeAndMessage(code)
   }
 }

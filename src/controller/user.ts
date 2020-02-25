@@ -17,9 +17,6 @@ export async function isExist(userName: string): Promise<BaseModel> {
   if (userInfo) {
     return new SuccessModel<UserInfo>(userInfo)
   } else {
-    return new ErrorModel({
-      code: '10003',
-      message: '用户不存在'
-    })
+    return new ErrorModel('10003')
   }
 }
