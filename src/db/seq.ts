@@ -8,7 +8,10 @@ import User from './model/user.model'
 const { host, user, password, database } = MYSQL_CONF
 const conf: Options = {
   host,
-  dialect: 'mysql'
+  dialect: 'mysql',
+  query: {
+    raw: true
+  }
 }
 
 if (isTest) {

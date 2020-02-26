@@ -6,7 +6,7 @@ import { DEFAULT_PICTURE } from '../conf/constant'
 import { UserInfo } from '../types/index'
 
 function _formatUserPicture(obj: UserInfo): UserInfo {
-  if (obj.picture === null) {
+  if (!obj.picture) {
     obj.picture = DEFAULT_PICTURE
   }
   return obj
