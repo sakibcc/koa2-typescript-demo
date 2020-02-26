@@ -4,7 +4,7 @@
 
 import UserService from '../services/user'
 import { BaseModel, SuccessModel, ErrorModel } from '../model/ResModel'
-
+import { doCrypto } from '../utils/cryp'
 class UserController {
   /**
    * @description 判断用户是否存在
@@ -43,7 +43,7 @@ class UserController {
     if (userInfo) {
       return new ErrorModel('10003')
     }
-
+    payload.password = doCrypto(payload.password || '')
     try {
       await UserService.createUser(payload)
       return new SuccessModel<object>({})

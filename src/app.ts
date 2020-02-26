@@ -5,6 +5,7 @@ import * as bodyparser from 'koa-bodyparser'
 import * as logger from 'koa-logger'
 import * as koaStatic from 'koa-static'
 import { REDIS_CONF } from './conf/db'
+import { APP_KEY } from './conf/constant'
 
 import * as session from 'koa-session'
 import * as redisStore from 'koa-redis'
@@ -44,7 +45,7 @@ app.use(async (ctx: any, next: any) => {
 })
 
 // session
-app.keys = ['test-key']
+app.keys = [APP_KEY]
 
 app.use(
   session(
