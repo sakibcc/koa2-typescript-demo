@@ -37,12 +37,10 @@ export default class UserTable extends Model<UserTable> {
   })
   gender: number
 
-  @AllowNull(false)
   @Comment('图片地址')
   @Column
   picture: string
 
-  @AllowNull(false)
   @Comment('城市')
   @Column
   city: string

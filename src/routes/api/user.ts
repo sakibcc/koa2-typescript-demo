@@ -8,9 +8,10 @@ const router = new KoaRouter()
 router.prefix('/api/user')
 
 // 注册路由
-// router.post('/register', async (ctx, next) => {
-//   const { userName, password, gender } = ctx.request.body
-// })
+router.post('/register', async (ctx, next) => {
+  const { userName, password, gender } = ctx.request.body
+  ctx.body = await UserController.register({ userName, password, gender })
+})
 
 // 用户名是否存在
 router.post('/isExist', async (ctx, next) => {

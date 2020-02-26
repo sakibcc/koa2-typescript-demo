@@ -8,9 +8,8 @@ import { formatUser } from '../helper/_format'
 
 class UserService {
   /**
-   * @description
+   * @description 获取用户信息
    * @date 2020-02-25
-   * @export
    * @param {string} userName 用户名
    * @param {string} [password] 密码
    * @returns {Promise<UserInfo>} 用户信息
@@ -36,6 +35,34 @@ class UserService {
     const formatRes = formatUser(result)
 
     return formatRes
+  }
+
+  /**
+   * @description 创建一条用户数据
+   * @date 2020-02-26
+   * @param {{
+   *     userName: string
+   *     password: string
+   *     gender: number
+   *     nickName: string
+   *   }} payload
+   * @returns {Promise<UserInfo>}
+   * @memberof UserService
+   */
+  async createUser(payload: {
+    userName: string
+    password: string
+    gender?: number
+    nickName?: string
+  }): Promise<UserInfo> {
+    const { userName, password, gender, nickName } = payload
+    const result = await User.create({
+      userName,
+      password,
+      gender,
+      nickName: nickName ? nickName : userName
+    })
+    return result
   }
 }
 
