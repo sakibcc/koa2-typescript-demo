@@ -8,6 +8,15 @@ import { ParameterizedContext } from 'koa'
 
 const router = new KoaRouter()
 
+/**
+ * @description 获取登录信息
+ * @date 2020-02-27
+ * @param {ParameterizedContext} ctx
+ * @returns {{
+ *   isLogin: boolean
+ *   userInfo: UserInfo
+ * }}
+ */
 function getLoginInfo(
   ctx: ParameterizedContext
 ): {

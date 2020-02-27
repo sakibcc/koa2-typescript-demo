@@ -1,7 +1,8 @@
 import * as KoaRouter from 'koa-router'
 const router = new KoaRouter()
+import { loginRedirect, loginCheck } from '../middlewares/loginCheck'
 
-router.get('/', async (ctx, next) => {
+router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {
     title: 'Hello Koa 2哈哈哈哈哈!'
   })
@@ -11,7 +12,7 @@ router.get('/string', async (ctx, next) => {
   ctx.body = 'koa2 string'
 })
 
-router.get('/session', async (ctx, next) => {
+router.get('/session', loginCheck, async (ctx, next) => {
   const session = ctx.session
   if (session.viewNum === undefined) {
     session.viewNum = 0
