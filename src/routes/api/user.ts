@@ -4,11 +4,13 @@
 
 import * as KoaRouter from 'koa-router'
 import UserController from '../../controller/user'
+import { genValidator } from '../../middlewares/validator'
+import { userValidate } from '../../utils/validator/user'
 const router = new KoaRouter()
 router.prefix('/api/user')
 
 // 注册路由
-router.post('/register', async (ctx, next) => {
+router.post('/register', genValidator(userValidate), async (ctx, next) => {
   const { userName, password, gender } = ctx.request.body
   ctx.body = await UserController.register({ userName, password, gender })
 })
