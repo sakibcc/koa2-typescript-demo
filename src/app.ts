@@ -54,8 +54,7 @@ app.use(
       prefix: 'demo:sess:', // redis key 的前缀
       store: redisStore({
         host: REDIS_CONF.host,
-        port: REDIS_CONF.port,
-        db: 1
+        port: REDIS_CONF.port
       }),
       signed: true,
       httpOnly: true,

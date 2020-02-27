@@ -21,4 +21,9 @@ router.post('/isExist', async (ctx, next) => {
   ctx.body = await UserController.isExist(userName)
 })
 
+router.post('/login', async (ctx, next) => {
+  const { userName, password } = ctx.request.body
+  ctx.body = await UserController.login(ctx, userName, password)
+})
+
 export default router

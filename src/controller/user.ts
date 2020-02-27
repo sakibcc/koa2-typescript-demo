@@ -3,8 +3,10 @@
  */
 
 import UserService from '../services/user'
-import { BaseModel, SuccessModel, ErrorModel } from '../model/ResModel'
+import { SuccessModel, ErrorModel } from '../model/ResModel'
+import { ParameterizedContext } from 'koa'
 import { doCrypto } from '../utils/cryp'
+type ResultModel = SuccessModel | ErrorModel
 class UserController {
   /**
    * @description 判断用户是否存在
@@ -13,10 +15,10 @@ class UserController {
    * @param {string} userName
    * @returns {boolean}
    */
-  async isExist(userName: string): Promise<BaseModel> {
+  async isExist(userName: string): Promise<ResultModel> {
     const userInfo = await UserService.getUserInfo(userName)
     if (userInfo) {
-      return new SuccessModel<boolean>(true)
+      return new SuccessModel(true)
     } else {
       return new ErrorModel('10003')
     }
@@ -37,7 +39,7 @@ class UserController {
     userName: string
     password: string
     gender: number
-  }): Promise<BaseModel> {
+  }): Promise<ResultModel> {
     const { userName } = payload
     const userInfo = await UserService.getUserInfo(userName)
     if (userInfo) {
@@ -46,11 +48,26 @@ class UserController {
     payload.password = doCrypto(payload.password || '')
     try {
       await UserService.createUser(payload)
-      return new SuccessModel<object>({})
+      return new SuccessModel({})
     } catch (error) {
       console.error(error.message, error.stack)
       return new ErrorModel('10001')
     }
+  }
+
+  async login(
+    ctx: ParameterizedContext,
+    userName: string,
+    password: string
+  ): Promise<ResultModel> {
+    const userInfo = await UserService.getUserInfo(userName, doCrypto(password))
+    if (!userInfo) {
+      return new ErrorModel('10002')
+    }
+    if (!ctx.session.userInfo) {
+      ctx.session.userInfo = userInfo
+    }
+    return new SuccessModel({})
   }
 }
 

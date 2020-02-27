@@ -3,6 +3,7 @@
  */
 
 import { ErrorModel } from '../model/ResModel'
+import { Middleware, Next, ParameterizedContext } from 'koa'
 type validateFunction = {
   (data: object): boolean
 }
@@ -13,8 +14,8 @@ type validateFunction = {
  * @param {*} validateFn 校验函数
  * @returns
  */
-export function genValidator(validateFn: validateFunction) {
-  async function valietor(ctx: any, next: any) {
+export function genValidator(validateFn: validateFunction): Middleware {
+  async function valietor(ctx: ParameterizedContext, next: Next) {
     const data = ctx.request.body
     const valid = validateFn(data)
     if (!valid) {
