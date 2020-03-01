@@ -22,3 +22,13 @@ export interface ErrorMessage {
   code: string
   message: string
 }
+
+export interface KoaUploadOptions {
+  encoding?: string
+  uploadDir?: string
+  keepExtensions?: boolean
+  maxFieldsSize?: number
+  maxFields?: number
+  hash?: boolean
+  multiples?: boolean
+}

@@ -4,6 +4,7 @@ import * as json from 'koa-json'
 import * as bodyparser from 'koa-bodyparser'
 import * as logger from 'koa-logger'
 import * as koaStatic from 'koa-static'
+import * as path from 'path'
 import { REDIS_CONF } from './conf/db'
 import { APP_KEY } from './conf/constant'
 
@@ -16,6 +17,7 @@ const onerror = require('koa-onerror')
 import index from './routes/index'
 import userViewRouter from './routes/views/user'
 import userApiRouter from './routes/api/user'
+import utilsApiRouter from './routes/api/utils'
 
 // error handler
 onerror(app)
@@ -29,6 +31,7 @@ app.use(
 app.use(json())
 app.use(logger())
 app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(
   views(__dirname + '/views', {
@@ -69,6 +72,7 @@ app.use(
 app.use(index.routes()).use(index.allowedMethods())
 app.use(userViewRouter.routes()).use(userViewRouter.allowedMethods())
 app.use(userApiRouter.routes()).use(userApiRouter.allowedMethods())
+app.use(utilsApiRouter.routes()).use(utilsApiRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
