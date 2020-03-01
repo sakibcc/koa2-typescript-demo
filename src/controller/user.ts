@@ -108,18 +108,54 @@ class UserController {
       nickName: string
       picture: string
       city: string
+      userName: string
     }
   ) {
-    const { userName } = ctx.session.userInfo
-    const result = await UserService.updateUser(payload, {
+    const { userName, ...updateData } = payload
+    const result = await UserService.updateUser(updateData, {
       userName
     })
     if (result) {
-      Object.assign(ctx.session.userInfo, payload)
+      Object.assign(ctx.session.userInfo, updateData)
       return new SuccessModel(true)
     }
 
     return new ErrorModel('10008')
+  }
+
+  /**
+   * @description 修改密码
+   * @date 2020-03-01
+   * @param {string} userName
+   * @param {string} password
+   * @param {string} newPassword
+   * @returns
+   * @memberof UserController
+   */
+  async changePassword(
+    userName: string,
+    password: string,
+    newPassword: string
+  ) {
+    const result = await UserService.updateUser(
+      {
+        password: doCrypto(newPassword)
+      },
+      {
+        userName,
+        password: doCrypto(password)
+      }
+    )
+
+    if (result) {
+      return new SuccessModel(true)
+    }
+    return new ErrorModel('10009')
+  }
+
+  async logout(ctx: ParameterizedContext) {
+    delete ctx.session.userInfo
+    return new SuccessModel(true)
   }
 }
 

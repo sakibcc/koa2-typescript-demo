@@ -42,8 +42,32 @@ router.patch(
   loginCheck,
   genValidator(userValidate),
   async (ctx, next) => {
+    const { userName } = ctx.session.userInfo
     const { nickName, picture, city } = ctx.request.body
-    ctx.body = await UserController.changeInfo(ctx, { nickName, picture, city })
+    ctx.body = await UserController.changeInfo(ctx, {
+      nickName,
+      picture,
+      city,
+      userName
+    })
   }
 )
+
+router.patch(
+  '/changePassword',
+  loginCheck,
+  genValidator(userValidate),
+  async (ctx, next) => {
+    const { userName } = ctx.session.userInfo
+    const { password, newPassword } = ctx.request.body
+    ctx.body = await UserController.changePassword(
+      userName,
+      password,
+      newPassword
+    )
+  }
+)
+router.post('/logout', loginCheck, async (ctx, next) => {
+  ctx.body = await UserController.logout(ctx)
+})
 export default router
