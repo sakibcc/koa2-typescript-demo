@@ -35,4 +35,15 @@ router.post('/delete', loginCheck, async (ctx, next) => {
     ctx.body = await UserController.deleteCurUser(userName)
   }
 })
+
+// 修改个人信息
+router.patch(
+  '/changeInfo',
+  loginCheck,
+  genValidator(userValidate),
+  async (ctx, next) => {
+    const { nickName, picture, city } = ctx.request.body
+    ctx.body = await UserController.changeInfo(ctx, { nickName, picture, city })
+  }
+)
 export default router

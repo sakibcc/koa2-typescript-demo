@@ -3,7 +3,7 @@
  */
 
 import { User } from '../db/seq'
-import { UserInfo } from '../types'
+import { UserInfo, UpdateUserInfo } from '../types'
 import { formatUser } from '../helper/_format'
 
 class UserService {
@@ -77,6 +77,44 @@ class UserService {
       }
     })
     return result > 0
+  }
+
+  /**
+   * @description 更新用户数据
+   * @date 2020-03-01
+   * @param {UpdateUserInfo} modifyData
+   * @param {{
+   *       userName: string
+   *       password?: string
+   *     }} whereParams
+   * @returns
+   * @memberof UserService
+   */
+  async updateUser(
+    modifyData: UpdateUserInfo,
+    whereParams: {
+      userName: string
+      password?: string
+    }
+  ) {
+    const { userName, password } = whereParams
+    // 拼接修改内容
+    const updateData: UpdateUserInfo = {}
+    Object.keys(modifyData).forEach((key: keyof UpdateUserInfo) => {
+      if (modifyData[key]) {
+        updateData[key] = modifyData[key]
+      }
+    })
+    const where: any = {
+      userName
+    }
+    if (password) {
+      where.password = password
+    }
+    const result = await User.update(updateData, {
+      where
+    })
+    return result[0] > 0
   }
 }
 

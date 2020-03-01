@@ -32,3 +32,10 @@ export interface KoaUploadOptions {
   hash?: boolean
   multiples?: boolean
 }
+
+export interface UpdateUserInfo {
+  nickName?: string
+  password?: string
+  city?: string
+  picture?: string
+}

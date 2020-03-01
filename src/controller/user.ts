@@ -15,7 +15,7 @@ class UserController {
    * @param {string} userName
    * @returns {boolean}
    */
-  async isExist(userName: string): Promise<ResultModel> {
+  async isExist(userName: string) {
     const userInfo = await UserService.getUserInfo(userName)
     if (userInfo) {
       return new SuccessModel(true)
@@ -39,7 +39,7 @@ class UserController {
     userName: string
     password: string
     gender: number
-  }): Promise<ResultModel> {
+  }) {
     const { userName } = payload
     const userInfo = await UserService.getUserInfo(userName)
     if (userInfo) {
@@ -64,11 +64,7 @@ class UserController {
    * @returns {Promise<ResultModel>}
    * @memberof UserController
    */
-  async login(
-    ctx: ParameterizedContext,
-    userName: string,
-    password: string
-  ): Promise<ResultModel> {
+  async login(ctx: ParameterizedContext, userName: string, password: string) {
     const userInfo = await UserService.getUserInfo(userName, doCrypto(password))
     if (!userInfo) {
       return new ErrorModel('10002')
@@ -86,12 +82,44 @@ class UserController {
    * @returns {Promise<ResultModel>}
    * @memberof UserController
    */
-  async deleteCurUser(userName: string): Promise<ResultModel> {
+  async deleteCurUser(userName: string) {
     const result = await UserService.deleteUser(userName)
     if (result) {
       return new SuccessModel(true)
     }
     return new ErrorModel('10006')
+  }
+
+  /**
+   * @description 修改用户信息
+   * @date 2020-03-01
+   * @param {ParameterizedContext} ctx
+   * @param {{
+   *       nickName: string
+   *       picture: string
+   *       city: string
+   *     }} payload
+   * @returns
+   * @memberof UserController
+   */
+  async changeInfo(
+    ctx: ParameterizedContext,
+    payload: {
+      nickName: string
+      picture: string
+      city: string
+    }
+  ) {
+    const { userName } = ctx.session.userInfo
+    const result = await UserService.updateUser(payload, {
+      userName
+    })
+    if (result) {
+      Object.assign(ctx.session.userInfo, payload)
+      return new SuccessModel(true)
+    }
+
+    return new ErrorModel('10008')
   }
 }
 
