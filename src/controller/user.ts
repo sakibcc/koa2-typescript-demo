@@ -55,6 +55,15 @@ class UserController {
     }
   }
 
+  /**
+   * @description 用户登录
+   * @date 2020-03-01
+   * @param {ParameterizedContext} ctx
+   * @param {string} userName
+   * @param {string} password
+   * @returns {Promise<ResultModel>}
+   * @memberof UserController
+   */
   async login(
     ctx: ParameterizedContext,
     userName: string,
@@ -68,6 +77,21 @@ class UserController {
       ctx.session.userInfo = userInfo
     }
     return new SuccessModel({})
+  }
+
+  /**
+   * @description 删除当前用户
+   * @date 2020-03-01
+   * @param {string} userName
+   * @returns {Promise<ResultModel>}
+   * @memberof UserController
+   */
+  async deleteCurUser(userName: string): Promise<ResultModel> {
+    const result = await UserService.deleteUser(userName)
+    if (result) {
+      return new SuccessModel(true)
+    }
+    return new ErrorModel('10006')
   }
 }
 

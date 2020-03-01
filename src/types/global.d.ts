@@ -1,5 +1,6 @@
 import { BaseContext } from 'koa'
 import { Session } from 'koa-session'
+import { UserInfo } from './index'
 
 // declare
 declare module 'koa-session' {

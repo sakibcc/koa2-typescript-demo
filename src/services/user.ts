@@ -62,6 +62,22 @@ class UserService {
     const dataValues = result.get({ plain: true })
     return dataValues as UserInfo
   }
+
+  /**
+   * @description 删除用户
+   * @date 2020-03-01
+   * @param {string} userName
+   * @returns {Promise<boolean>}
+   * @memberof UserService
+   */
+  async deleteUser(userName: string): Promise<boolean> {
+    const result = await User.destroy({
+      where: {
+        userName
+      }
+    })
+    return result > 0
+  }
 }
 
 export default new UserService()
