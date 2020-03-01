@@ -21,8 +21,8 @@ export class SuccessModel extends BaseModel {
 
 export class ErrorModel extends BaseModel {
   message: string
-  constructor(code: string) {
+  constructor(code: string, message?: string) {
     super(false, code)
-    this.message = getResCodeAndMessage(code)
+    this.message = message || getResCodeAndMessage(code)
   }
 }
