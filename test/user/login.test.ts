@@ -54,9 +54,40 @@ test('登录应该成功', async () => {
   _cookie = res.header['set-cookie'].join(';')
 })
 
+// 修改基本信息
+test('修改用户信息，应该成功', async () => {
+  const res = await server
+    .patch('/api/user/changeInfo')
+    .send({
+      nickName: '测试昵称',
+      city: '测试城市',
+      picture: '/test.png'
+    })
+    .set('cookie', _cookie)
+  expect(res.body.code).toBe('10000')
+})
+
+// 修改密码
+test('修改用户密码，应该成功', async () => {
+  const res = await server
+    .patch('/api/user/changePassword')
+    .send({
+      password,
+      newPassword: `np_${Date.now()}`
+    })
+    .set('cookie', _cookie)
+  expect(res.body.code).toBe('10000')
+})
+
 // 删除测试用户
 test('删除测试用户，应该成功', async () => {
   const res = await server.post('/api/user/delete').set('cookie', _cookie)
+  expect(res.body.code).toBe('10000')
+})
+
+// 退出登录
+test('退出登录，应该成功', async () => {
+  const res = await server.post('/api/user/logout').set('cookie', _cookie)
   expect(res.body.code).toBe('10000')
 })
 
