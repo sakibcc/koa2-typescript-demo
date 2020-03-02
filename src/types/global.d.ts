@@ -12,7 +12,7 @@ declare module 'koa-session' {
 }
 declare module 'koa' {
   interface BaseContext {
-    render(str: string, config: object): Promise<any>
+    render(str: string, config?: object): Promise<any>
     session: Session
   }
 }

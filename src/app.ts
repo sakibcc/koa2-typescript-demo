@@ -14,10 +14,11 @@ import * as redisStore from 'koa-redis'
 const app = new Koa()
 const onerror = require('koa-onerror')
 // router
-import index from './routes/index'
+import blogViewRouter from './routes/views/blog'
 import userViewRouter from './routes/views/user'
 import userApiRouter from './routes/api/user'
 import utilsApiRouter from './routes/api/utils'
+import errorViewRouter from './routes/views/error'
 
 // error handler
 onerror(app)
@@ -69,10 +70,11 @@ app.use(
 )
 
 // routes
-app.use(index.routes()).use(index.allowedMethods())
+app.use(blogViewRouter.routes()).use(blogViewRouter.allowedMethods())
 app.use(userViewRouter.routes()).use(userViewRouter.allowedMethods())
 app.use(userApiRouter.routes()).use(userApiRouter.allowedMethods())
 app.use(utilsApiRouter.routes()).use(utilsApiRouter.allowedMethods())
+app.use(errorViewRouter.routes).use(errorViewRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
