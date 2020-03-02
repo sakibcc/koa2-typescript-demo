@@ -42,7 +42,7 @@ class UtilsController {
     }
 
     // 移动文件
-    const fileName = `${Date.now()}.${name}`
+    const fileName = `${Date.now()}_${name}`
     const distFilePath = path.join(DIST_FOLDER_PATH, fileName)
     await fs.move(filePath, distFilePath)
     return new SuccessModel({
