@@ -1,3 +1,7 @@
+/**
+ * @description 用户数据模型
+ */
+
 import {
   Model,
   Table,

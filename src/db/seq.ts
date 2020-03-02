@@ -4,6 +4,7 @@ import { MYSQL_CONF } from '../conf/db'
 import { isTest } from '../utils/env'
 // models
 import User from './model/user.model'
+import Blog from './model/blog.model'
 
 const { host, user, password, database } = MYSQL_CONF
 const conf: Options = {
@@ -22,7 +23,7 @@ if (isTest) {
 const seq = new Sequelize(database, user, password, conf)
 
 // seq.addModels([__dirname + '/model'])
-seq.addModels([User])
+seq.addModels([User, Blog])
 
 // 测试拦截
 seq
@@ -34,4 +35,4 @@ seq
     console.error('Unable to connect to the database:', err)
   })
 
-export { seq, User }
+export { seq, User, Blog }
