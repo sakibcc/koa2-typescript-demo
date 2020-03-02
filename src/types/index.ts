@@ -39,3 +39,9 @@ export interface UpdateUserInfo {
   city?: string
   picture?: string
 }
+
+export interface BlogData {
+  userId: number
+  content: string
+  image?: string
+}

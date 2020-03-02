@@ -18,6 +18,7 @@ import blogViewRouter from './routes/views/blog'
 import userViewRouter from './routes/views/user'
 import userApiRouter from './routes/api/user'
 import utilsApiRouter from './routes/api/utils'
+import blogHomeApiRouter from './routes/api/blogHome'
 import errorViewRouter from './routes/views/error'
 
 // error handler
@@ -74,6 +75,7 @@ app.use(blogViewRouter.routes()).use(blogViewRouter.allowedMethods())
 app.use(userViewRouter.routes()).use(userViewRouter.allowedMethods())
 app.use(userApiRouter.routes()).use(userApiRouter.allowedMethods())
 app.use(utilsApiRouter.routes()).use(utilsApiRouter.allowedMethods())
+app.use(blogHomeApiRouter.routes()).use(blogHomeApiRouter.allowedMethods())
 app.use(errorViewRouter.routes).use(errorViewRouter.allowedMethods())
 
 // error-handling
