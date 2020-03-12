@@ -11,9 +11,9 @@ export class BaseModel {
   }
 }
 
-export class SuccessModel extends BaseModel {
-  data: any
-  constructor(data: any) {
+export class SuccessModel<T> extends BaseModel {
+  data: T
+  constructor(data: T) {
     super(true, '10000')
     this.data = data
   }

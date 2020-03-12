@@ -7,17 +7,6 @@ export interface DatabaseConfig {
   host: string
 }
 
-export interface UserInfo {
-  id?: number
-  userName: string
-  nickName: string
-  gender: number
-  picture?: string
-  city?: string
-  createdAt?: string
-  updatedAt?: string
-}
-
 export interface ErrorMessage {
   code: string
   message: string
@@ -38,10 +27,4 @@ export interface UpdateUserInfo {
   password?: string
   city?: string
   picture?: string
-}
-
-export interface BlogData {
-  userId: number
-  content: string
-  image?: string
 }

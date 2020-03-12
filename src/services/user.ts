@@ -3,7 +3,7 @@
  */
 
 import { User } from '../db/seq'
-import { UserInfo, UpdateUserInfo } from '../types'
+import { UpdateUserInfo } from '../types'
 import { formatUser } from '../helper/_format'
 
 class UserService {
@@ -12,9 +12,9 @@ class UserService {
    * @date 2020-02-25
    * @param {string} userName 用户名
    * @param {string} [password] 密码
-   * @returns {Promise<UserInfo>} 用户信息
+   * @returns {Promise<User>} 用户信息
    */
-  async getUserInfo(userName: string, password?: string): Promise<UserInfo> {
+  async getUserInfo(userName: string, password?: string) {
     let whereParams = {
       userName
     }
@@ -27,10 +27,11 @@ class UserService {
       attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
       where: whereParams
     })
-    if (result === null) {
+    const dataValues = result.get({ plain: true })
+    if (dataValues === null) {
       return null
     }
-    const formatRes = formatUser(result)
+    const formatRes = formatUser(dataValues as User)
     return formatRes
   }
 
@@ -43,7 +44,7 @@ class UserService {
    *     gender: number
    *     nickName: string
    *   }} payload
-   * @returns {Promise<UserInfo>}
+   * @returns {Promise<User>}
    * @memberof UserService
    */
   async createUser(payload: {
@@ -51,7 +52,7 @@ class UserService {
     password: string
     gender?: number
     nickName?: string
-  }): Promise<UserInfo> {
+  }) {
     const { userName, password, gender, nickName } = payload
     const result = await User.create({
       userName,
@@ -60,7 +61,7 @@ class UserService {
       nickName: nickName ? nickName : userName
     })
     const dataValues = result.get({ plain: true })
-    return dataValues as UserInfo
+    return dataValues as User
   }
 
   /**

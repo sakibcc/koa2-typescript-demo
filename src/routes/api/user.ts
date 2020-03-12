@@ -8,6 +8,7 @@ import { genValidator } from '../../middlewares/validator'
 import { userValidate } from '../../utils/validator/user'
 import { isTest } from '../../utils/env'
 import { loginCheck } from '../../middlewares/loginCheck'
+import { SuccessModel } from '../../model/ResModel'
 const router = new KoaRouter()
 router.prefix('/api/user')
 
@@ -20,7 +21,12 @@ router.post('/register', genValidator(userValidate), async (ctx, next) => {
 // 用户名是否存在
 router.post('/isExist', async (ctx, next) => {
   const { userName } = ctx.request.body
-  ctx.body = await UserController.isExist(userName)
+  const result = await UserController.isExist(userName)
+  if (result instanceof SuccessModel) {
+    ctx.body = new SuccessModel(true)
+  } else {
+    ctx.body = result
+  }
 })
 
 router.post('/login', async (ctx, next) => {

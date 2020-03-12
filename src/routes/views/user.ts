@@ -3,7 +3,7 @@
  */
 
 import * as KoaRouter from 'koa-router'
-import { UserInfo } from '../../types'
+import { User } from '../../db/seq'
 import { ParameterizedContext } from 'koa'
 import { loginRedirect } from '../../middlewares/loginCheck'
 
@@ -15,18 +15,18 @@ const router = new KoaRouter()
  * @param {ParameterizedContext} ctx
  * @returns {{
  *   isLogin: boolean
- *   userInfo: UserInfo
+ *   userInfo: UserTable
  * }}
  */
 function getLoginInfo(
   ctx: ParameterizedContext
 ): {
   isLogin: boolean
-  userInfo: UserInfo
+  userInfo: User
 } {
   let data = {
     isLogin: false,
-    userInfo: null as UserInfo
+    userInfo: null as User
   }
 
   if (ctx.session.userInfo) {

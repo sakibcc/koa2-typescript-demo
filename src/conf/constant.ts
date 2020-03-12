@@ -9,3 +9,5 @@ export const SECRET_KEY = 'koa_test'
 export const APP_KEY = 'test-key'
 
 export const TEMP_FILES_PATH = path.join(__dirname, '..', '..', 'tempFiles')
+
+export const PAGE_SIZE = 10

@@ -6,7 +6,6 @@ import UserService from '../services/user'
 import { SuccessModel, ErrorModel } from '../model/ResModel'
 import { ParameterizedContext } from 'koa'
 import { doCrypto } from '../utils/cryp'
-type ResultModel = SuccessModel | ErrorModel
 class UserController {
   /**
    * @description 判断用户是否存在
@@ -18,7 +17,7 @@ class UserController {
   async isExist(userName: string) {
     const userInfo = await UserService.getUserInfo(userName)
     if (userInfo) {
-      return new SuccessModel(true)
+      return new SuccessModel(userInfo)
     } else {
       return new ErrorModel('10003')
     }
