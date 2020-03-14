@@ -27,10 +27,10 @@ class UserService {
       attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
       where: whereParams
     })
-    const dataValues = result.get({ plain: true })
-    if (dataValues === null) {
+    if (result === null) {
       return null
     }
+    const dataValues = result.get({ plain: true })
     const formatRes = formatUser(dataValues as User)
     return formatRes
   }
