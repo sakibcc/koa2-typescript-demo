@@ -10,9 +10,9 @@ const MAX_SIZE = 1024 * 1024 * 1024
 // 储存目录
 const DIST_FOLDER_PATH = path.join(__dirname, '..', '..', 'uploadFiles')
 // 首次创建目录
-fs.pathExists(DIST_FOLDER_PATH).then(exist => {
+void fs.pathExists(DIST_FOLDER_PATH).then(exist => {
   if (!exist) {
-    fs.ensureDir(DIST_FOLDER_PATH)
+    void fs.ensureDir(DIST_FOLDER_PATH)
   }
 })
 
