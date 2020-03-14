@@ -1,6 +1,6 @@
 import server from './server'
 
-const userName = 'sakibcc'
+export const userName = 'sakibcc'
 const password = '123'
 // @ts-ignore
 global.getCookie = async function() {
