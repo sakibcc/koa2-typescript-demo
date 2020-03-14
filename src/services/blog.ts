@@ -29,7 +29,7 @@ class BlogService {
   }
 
   async getBlogListByUser(payload: {
-    userName: string
+    userName?: string
     pageNo: number
     pageSize: number
   }) {

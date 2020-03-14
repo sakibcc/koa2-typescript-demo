@@ -6,6 +6,7 @@ import * as KoaRouter from 'koa-router'
 import { ParameterizedContext } from 'koa'
 import { loginRedirect } from '../../middlewares/loginCheck'
 import BlogProfileController from '../../controller/blogProfile'
+import BlogSquareController from '../../controller/blogSquare'
 import UserController from '../../controller/user'
 import { SuccessModel } from '../../model/ResModel'
 
@@ -53,6 +54,27 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
         userInfo: curUserInfo,
         isMe
       }
+    })
+  }
+})
+router.get('/square', loginRedirect, async (ctx, next) => {
+  // 获取所有微博的第一页
+  const result = await BlogSquareController.getSquareBlogList(0)
+
+  if (result instanceof SuccessModel) {
+    const { isEmpty, blogList, pageNo, pageSize, count } = result.data
+    await ctx.render('square', {
+      blogData: {
+        isEmpty,
+        blogList,
+        pageSize,
+        pageNo,
+        count
+      }
+    })
+  } else {
+    await ctx.render('square', {
+      blogData: {}
     })
   }
 })

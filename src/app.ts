@@ -20,6 +20,7 @@ import userApiRouter from './routes/api/user'
 import utilsApiRouter from './routes/api/utils'
 import blogHomeApiRouter from './routes/api/blogHome'
 import blogProfileApiRouter from './routes/api/blogProfile'
+import blogSquareApiRouter from './routes/api/blogSquare'
 import errorViewRouter from './routes/views/error'
 
 // error handler
@@ -80,6 +81,7 @@ app.use(blogHomeApiRouter.routes()).use(blogHomeApiRouter.allowedMethods())
 app
   .use(blogProfileApiRouter.routes())
   .use(blogProfileApiRouter.allowedMethods())
+app.use(blogSquareApiRouter.routes()).use(blogSquareApiRouter.allowedMethods())
 app.use(errorViewRouter.routes).use(errorViewRouter.allowedMethods())
 
 // error-handling
