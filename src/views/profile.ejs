@@ -19,8 +19,8 @@
       <!-- 微博列表 结束 -->
       <!-- 加载更多 -->
       <% if (blogData.count > blogData.blogList.length) { %> <%-
-      include('widgets/load-more', { pageSize: blogData.pageSize, pageIndex:
-      blogData.pageIndex, count: blogData.count, containerSelector:
+      include('widgets/load-more', { pageSize: blogData.pageSize, pageNo:
+      blogData.pageNo, count: blogData.count, containerSelector:
       '#container-weibo-list', api: '/api/profile/loadMore/' +
       userData.userInfo.userName, })%> <% } %>
       <!-- 加载更多 结束 -->
