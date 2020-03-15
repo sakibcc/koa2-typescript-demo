@@ -10,9 +10,11 @@ import {
   DataType,
   Default,
   Comment,
-  AllowNull
+  AllowNull,
+  HasMany
 } from 'sequelize-typescript'
-
+import UserRelation from './userRelation.model'
+import { User } from '../seq'
 @Table({
   tableName: 'user'
 })
@@ -48,4 +50,7 @@ export default class UserTable extends Model<UserTable> {
   @Comment('城市')
   @Column
   city: string
+
+  @HasMany(() => UserRelation, 'userId')
+  followerList: User[]
 }
