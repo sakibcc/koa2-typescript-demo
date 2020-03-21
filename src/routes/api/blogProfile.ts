@@ -24,4 +24,15 @@ router.get('/loadMore/:userName/:pageNo', loginCheck, async (ctx, next) => {
   }
 })
 
+router.post('/follow', async (ctx, next) => {
+  const { id: userId } = ctx.session.userInfo
+  const { userId: curUserId } = ctx.request.body
+  ctx.body = await BlogProfileController.handleFollow(userId, curUserId)
+})
+router.post('/unfollow', async (ctx, next) => {
+  const { id: userId } = ctx.session.userInfo
+  const { userId: curUserId } = ctx.request.body
+  ctx.body = await BlogProfileController.removeFollow(userId, curUserId)
+})
+
 export default router

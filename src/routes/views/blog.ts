@@ -7,6 +7,7 @@ import { ParameterizedContext } from 'koa'
 import { loginRedirect } from '../../middlewares/loginCheck'
 import BlogProfileController from '../../controller/blogProfile'
 import BlogSquareController from '../../controller/blogSquare'
+import UserRelationController from '../../controller/UserRelation'
 import UserController from '../../controller/user'
 import { SuccessModel } from '../../model/ResModel'
 
@@ -35,27 +36,31 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
       curUserInfo = existUser.data
     }
   }
-  const result = await BlogProfileController.getProfileBlogList(curUserName)
-  if (result instanceof SuccessModel) {
-    await ctx.render('profile', {
-      blogData: result.data,
-      userData: {
-        userInfo: curUserInfo,
-        isMe
-      }
-    })
-  } else {
-    await ctx.render('profile', {
-      blogData: {
-        isEmpty: true,
-        blogList: []
-      },
-      userData: {
-        userInfo: curUserInfo,
-        isMe
-      }
-    })
+  // 获取粉丝列表
+  const fansResult = await UserRelationController.getFans(curUserInfo.id)
+  let fansCount: number = 0
+  let fansList: any[] = []
+  if (fansResult instanceof SuccessModel) {
+    fansCount = fansResult.data.count
+    fansList = fansResult.data.fansList
   }
+  // 获取微博
+  const blogResult = await BlogProfileController.getProfileBlogList(curUserName)
+  let blogData: Object = {}
+  if (blogResult instanceof SuccessModel) {
+    blogData = blogResult.data
+  }
+  await ctx.render('profile', {
+    blogData: blogData,
+    userData: {
+      userInfo: curUserInfo,
+      isMe
+    },
+    fansData: {
+      count: fansCount,
+      list: fansList
+    }
+  })
 })
 router.get('/square', loginRedirect, async (ctx, next) => {
   // 获取所有微博的第一页

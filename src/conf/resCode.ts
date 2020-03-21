@@ -18,9 +18,13 @@ const blogCode = {
   '20001': '微博创建失败'
 }
 
+const relationCode = {
+  '30001': '关注失败'
+}
+
 const allCodeList: {
   [_: string]: string
-} = Object.assign({}, baseCode, blogCode)
+} = Object.assign({}, baseCode, blogCode, relationCode)
 export function getResCodeAndMessage(code: string): string {
   return allCodeList[code] || '系统错误'
 }
