@@ -34,6 +34,36 @@ class UserRelationService {
     }
   }
   /**
+   * @description 获取关注人列表
+   * @date 2020-03-22
+   * @param {number} userId
+   * @returns
+   * @memberof UserRelationService
+   */
+  async getFollowersByUser(userId: number) {
+    const result = await UserRelation.findAndCountAll({
+      order: [['id', 'desc']],
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'userName', 'nickName', 'picture']
+        }
+      ],
+      where: {
+        userId
+      }
+    })
+    let { rows: userList, count } = result
+    const followerList = userList.map(item => {
+      item.user = formatUser(item.user)
+      return item.user
+    })
+    return {
+      followerList,
+      count
+    }
+  }
+  /**
    * @description 创建用户关联关系
    * @date 2020-03-21
    * @param {number} userId

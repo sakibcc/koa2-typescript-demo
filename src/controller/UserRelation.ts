@@ -18,5 +18,13 @@ class UserRelationController {
       return new ErrorModel('10001')
     }
   }
+  async getFollowers(userId: number) {
+    try {
+      const result = await UserRelationService.getFollowersByUser(userId)
+      return new SuccessModel(result)
+    } catch (error) {
+      return new ErrorModel('10001')
+    }
+  }
 }
 export default new UserRelationController()

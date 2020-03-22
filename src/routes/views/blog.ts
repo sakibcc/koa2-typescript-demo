@@ -44,6 +44,21 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
     fansCount = fansResult.data.count
     fansList = fansResult.data.fansList
   }
+
+  // 是否关注此人
+  const amIFollowed = fansList.some(item => item.userName === userName)
+
+  // 获取关注人
+  const followerResult = await UserRelationController.getFollowers(
+    curUserInfo.id
+  )
+  let followerList: any[] = []
+  let followerCount: number = 0
+  if (followerResult instanceof SuccessModel) {
+    followerList = followerResult.data.followerList
+    followerCount = followerResult.data.count
+  }
+
   // 获取微博
   const blogResult = await BlogProfileController.getProfileBlogList(curUserName)
   let blogData: Object = {}
@@ -54,14 +69,20 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
     blogData: blogData,
     userData: {
       userInfo: curUserInfo,
-      isMe
-    },
-    fansData: {
-      count: fansCount,
-      list: fansList
+      isMe,
+      fansData: {
+        count: fansCount,
+        list: fansList
+      },
+      followersData: {
+        count: followerCount,
+        list: followerList
+      },
+      amIFollowed
     }
   })
 })
+
 router.get('/square', loginRedirect, async (ctx, next) => {
   // 获取所有微博的第一页
   const result = await BlogSquareController.getSquareBlogList(0)
